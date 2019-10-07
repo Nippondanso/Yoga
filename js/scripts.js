@@ -1,6 +1,9 @@
 window.addEventListener('DOMContentLoaded', function () {
 
     'use strict';
+
+    // Tabs
+    //#region Tabs
     let tab = document.querySelectorAll('.info-header-tab'),
         info = document.querySelector('.info-header'),
         tabContent = document.querySelectorAll('.info-tabcontent');
@@ -34,7 +37,10 @@ window.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // timer
+    //#endregion Tabs
+
+    // Timer
+    //#region Timer
     let deadline = '2019-10-12';
     // let deadline = new Date(2019,10,6,15,6,0,0);
 
@@ -54,10 +60,6 @@ window.addEventListener('DOMContentLoaded', function () {
         };
     }
 
-    function addZeroToDate(enterData) {
-        let result = enterData < 10 ? "0" + enterData : enterData;
-        return result;
-    }
 
     function setClock(id, endTime) {
         let timer = document.getElementById(id),
@@ -69,6 +71,12 @@ window.addEventListener('DOMContentLoaded', function () {
 
         function updateClock() {
             let t = getTimeRemaining(endTime);
+
+            function addZeroToDate(enterData) {
+                let result = enterData < 10 ? "0" + enterData : enterData;
+                return result;
+            }
+
             days.textContent = addZeroToDate(t.days);
             hours.textContent = addZeroToDate(t.hours);
             minutes.textContent = addZeroToDate(t.minutes);
@@ -85,4 +93,27 @@ window.addEventListener('DOMContentLoaded', function () {
     }
 
     setClock('timer', deadline);
+    //#endregion Timer
+
+    // Modal
+    //#region  Modal
+    let more = document.querySelector('.more'),
+        overlay = document.querySelector('.overlay'),
+        close = document.querySelector('.popup-close');
+
+    more.addEventListener('click', function () {
+        overlay.style.display = 'block';
+        this.classList.add('more-splash');
+        document.body.style.overflow = 'hidden';
+    });
+
+    close.addEventListener('click', function () {
+        overlay.style.display = 'none';
+        more.classList.remove('more-splash');
+        document.body.style.overflow = '';
+    });
+    //#endregion Modal
+    
+
+
 });

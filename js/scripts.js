@@ -113,10 +113,6 @@ window.addEventListener('DOMContentLoaded', function () {
     });
     //#endregion Modal
 
-    let options = {
-        width: 1366,
-        height: 768,
-        background: 'red'
-    }
+ 
 
 });

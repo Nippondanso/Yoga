@@ -8,7 +8,7 @@ window.addEventListener('DOMContentLoaded', function () {
         info = document.querySelector('.info-header'),
         tabContent = document.querySelectorAll('.info-tabcontent');
 
-    function hideTabContent(a) {
+    let hideTabContent = (a) => {
         for (let i = a; i < tabContent.length; i++) {
             tabContent[i].classList.remove('show');
             tabContent[i].classList.add('hide');
@@ -17,14 +17,14 @@ window.addEventListener('DOMContentLoaded', function () {
 
     hideTabContent(1);
 
-    function showTabContent(b) {
+    let showTabContent = (b) => {
         if (tabContent[b].classList.contains('hide')) {
             tabContent[b].classList.remove('hide');
             tabContent[b].classList.add('show');
         }
     }
 
-    info.addEventListener('click', function (event) {
+    info.addEventListener('click', (event) => {
         let target = event.target;
         if (target && target.classList.contains('info-header-tab')) {
             for (let i = 0; i < tab.length; i++) {
@@ -41,9 +41,9 @@ window.addEventListener('DOMContentLoaded', function () {
 
     // Timer
     //#region Timer
-    let deadline = new Date(2019,9,12,11,0,0,0);    
+    let deadline = new Date(2019, 9, 12, 11, 0, 0, 0);
 
-    function getTimeRemaining(endTime) {
+    let getTimeRemaining = (endTime) => {
         let t = Date.parse(endTime) - Date.parse(new Date()),
             s = Math.floor((t / 1000) % 60),
             m = Math.floor((t / 1000 / 60) % 60),
@@ -71,7 +71,7 @@ window.addEventListener('DOMContentLoaded', function () {
         function updateClock() {
             let t = getTimeRemaining(endTime);
 
-            function addZeroToDate(enterData) {
+            let addZeroToDate = (enterData) => {
                 let result = enterData < 10 ? "0" + enterData : enterData;
                 return result;
             }
@@ -83,9 +83,9 @@ window.addEventListener('DOMContentLoaded', function () {
 
             if (t.total <= 0) {
                 clearInterval(timeInterval);
-                days.textContent = "00",
+                    days.textContent = "00",
                     hours.textContent = "00",
-                    minutes.textContent = "00",
+                    inutes.textContent = "00",
                     seconds.textContent = "00"
             }
         }
@@ -100,19 +100,19 @@ window.addEventListener('DOMContentLoaded', function () {
         overlay = document.querySelector('.overlay'),
         close = document.querySelector('.popup-close');
 
-    more.addEventListener('click', function () {
+    more.addEventListener('click', () => {
         overlay.style.display = 'block';
         this.classList.add('more-splash');
         document.body.style.overflow = 'hidden';
     });
 
-    close.addEventListener('click', function () {
+    close.addEventListener('click', () => {
         overlay.style.display = 'none';
         more.classList.remove('more-splash');
         document.body.style.overflow = '';
     });
     //#endregion Modal
-    
+
 
 
 });

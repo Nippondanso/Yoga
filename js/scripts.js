@@ -83,7 +83,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
             if (t.total <= 0) {
                 clearInterval(timeInterval);
-                    days.textContent = "00",
+                days.textContent = "00",
                     hours.textContent = "00",
                     inutes.textContent = "00",
                     seconds.textContent = "00"
@@ -112,5 +112,54 @@ window.addEventListener('DOMContentLoaded', function () {
         document.body.style.overflow = '';
     });
     //#endregion Modal  
+
+    //Form
+    //#region Form
+    let message = {
+        loading: "Загрузка...",
+        success: "Спасибо скоро мы с вами свяжемся",
+        failure: "что-то пошло не так"
+    };
+
+    let form = document.querySelector('.main-form'),
+        input = form.getElementsByTagName('input'),
+        statusMessage = document.createElement('div');
+
+    statusMessage.classList.add('status');
+
+
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        form.appendChild(statusMessage);
+
+        let request = new XMLHttpRequest();
+        request.open('POST', 'server.php');
+        // request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+
+        let formData = new FormData(form);
+
+        let tempObj = {};
+        formData.forEach(function (value, key) {
+            tempObj[key] = value;
+        });
+        let json = JSON.stringify(tempObj);
+
+        request.send(json);
+
+        request.addEventListener('readystatechange', function () {
+            if (request.readyState < 4) {
+                statusMessage.innerHTML = message.loading;
+            } else if (request.readyState === 4 && request.status == 200) {
+                statusMessage.innerHTML = message.success;
+            } else {
+                statusMessage.innerHTML = message.failure;
+            }
+        });
+        for (let i = 0; i < input.length; i++) {
+            input[i].value = '';
+        }
+    });
+    //#endregion Form
 
 });

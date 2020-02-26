@@ -3,7 +3,7 @@ window.addEventListener('DOMContentLoaded', function () {
     'use strict';
 
     // Tabs
-    //#region Tabs
+    //#region TABS
     let tab = document.querySelectorAll('.info-header-tab'),
         info = document.querySelector('.info-header'),
         tabContent = document.querySelectorAll('.info-tabcontent');
@@ -37,10 +37,10 @@ window.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    //#endregion Tabs
+    //#endregion TABS
 
     // Timer
-    //#region Timer
+    //#region TIMER
     let deadline = new Date(2020, 10, 12, 11, 0, 0, 0);
 
     let getTimeRemaining = (endTime) => {
@@ -92,10 +92,10 @@ window.addEventListener('DOMContentLoaded', function () {
     }
 
     setClock('timer', deadline);
-    //#endregion Timer
+    //#endregion TIMER
 
     // Modal
-    //#region  Modal
+    //#region  MODAL
     let more = document.querySelector('.more'),
         overlay = document.querySelector('.overlay'),
         close = document.querySelector('.popup-close');
@@ -111,10 +111,10 @@ window.addEventListener('DOMContentLoaded', function () {
         more.classList.remove('more-splash');
         document.body.style.overflow = '';
     });
-    //#endregion Modal  
+    //#endregion MODAL  
 
     //Form
-    //#region Form
+    //#region FORM
     let message = {
         loading: "Загрузка...",
         success: "Спасибо скоро мы с вами свяжемся",
@@ -174,7 +174,7 @@ window.addEventListener('DOMContentLoaded', function () {
                     request.onreadystatechange = function () {
                         if (request.readyState < 4) {
                             resolve()
-                        } else if (request.readyState === 4 ) {
+                        } else if (request.readyState === 4) {
                             if (request.status == 200 && request.status < 300) {
                                 resolve()
                             } else {
@@ -201,8 +201,62 @@ window.addEventListener('DOMContentLoaded', function () {
         });
     }
     sendForm(form);
+    //#endregion FORM
 
+    //Slider
+    //#region SLIDER
+    let slideIndex = 1,
+        slides = document.querySelectorAll('.slider-item'),
+        prev = document.querySelector('.prev'),
+        next = document.querySelector('.next'),
+        dotsWrap = document.querySelector('.slider-dots'),
+        dots = document.querySelectorAll('.dot');
 
-    //#endregion Form
+    showSlides(slideIndex)
 
+    function showSlides(n) {
+
+        if (n > slides.length) {
+            slideIndex = 1
+        }
+        if (n < 1) {
+            slideIndex = slides.length;
+        }
+
+        slides.forEach((item) => item.style.display = 'none');
+        dots.forEach((item) => item.classList.remove('dot-active'));
+
+        slides[slideIndex - 1].style.display = 'block';
+        dots[slideIndex - 1].classList.add('dot-active');
+    };
+
+    function plusSlide(n) {
+        showSlides(slideIndex += n)
+    }
+
+    function currentSlide(n) {
+        showSlides(slideIndex = n)
+    }
+
+    prev.addEventListener('click', function () {
+        plusSlide(-1);
+    });
+
+    next.addEventListener('click', function () {
+        plusSlide(1);
+    });
+
+    dotsWrap.addEventListener('click', function (event) {
+        for (let i = 0; i < dots.length + 1; i++) {
+            if (event.target.classList.contains('dot') && event.target == dots[i - 1]){
+                currentSlide(i);
+            }
+        }
+    });
+    //#endregion SLIDER
+
+    //Calculator
+    //#region CALC
+        
+    //#endregion CALC
 });
